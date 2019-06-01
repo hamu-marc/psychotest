@@ -505,7 +505,7 @@ Interpreter.prototype.translateTestItems = function(row) {
     else if(!startsWithComment(rowsplitted[0])) translatedRow += this.stimul.translateNonZvuk(row); //do separation between stimuli and other elements
 
     if (isZvuk(rowsplitted[0])) { /* already done in previous call, no action*/ }
-    //else if (isVideo(rowsplitted[0])) translatedRow += this.stimul.translateVideo(rowsplitted); //deprecated
+    //else if (isVideo(rowsplitted[0])) translatedRow += this.stimuli.translateVideo(rowsplitted); //deprecated
     else if (isText(rowsplitted[0])) translatedRow += this.translateText(row);
     else if (isSloupce(rowsplitted[0])) translatedRow += this.translateSloupce();
     /*else if (isParovaOtazka(rowsplitted[0])) { //priority over isOtazka
