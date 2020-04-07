@@ -51,7 +51,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!*****************************************************************************!*\
   !*** ./node_modules/aurelia-testing/dist/native-modules/aurelia-testing.js ***!
   \*****************************************************************************/
-/*! exports provided: configure, CompileSpy, ViewSpy, StageComponent, ComponentTester, waitFor, waitForDocumentElement, waitForDocumentElements */
+/*! exports provided: CompileSpy, ViewSpy, StageComponent, ComponentTester, waitFor, waitForDocumentElement, waitForDocumentElements, configure */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
