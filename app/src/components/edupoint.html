@@ -1,0 +1,17 @@
+<template bindable="x,y,r1,r2,color">
+  <svg style="position: absolute;left: ${x}%;top: ${y}%; overflow:visible" viewBox="0 0 30 30">
+    <defs>
+      <radialGradient id="myGradient">
+        <stop stop-color="${color}" offset="50%" stop-opacity="0.8"></stop>
+        <stop offset="95%" stop-color="${color}" stop-opacity="0.1"></stop>
+      </radialGradient>
+    </defs>
+    <circle fill="url('#myGradient')" cx="0" cy="0" r="${r1}"></circle>
+    <circle style="" cx="0" cy="0" r="${r2}" stroke="${color}" fill="none" stroke-width="0.1"></circle>
+    <line x1="0" y1="0" x2="3" y2="0" style="stroke:${color};stroke-width:0.1;stroke-opacity:0.5"></line>
+    <line x1="0" y1="0" x2="0" y2="3" style="stroke:${color};stroke-width:0.1;stroke-opacity:0.5"></line>
+    <line x1="0" y1="0" x2="-3" y2="0" style="stroke:${color};stroke-width:0.1;stroke-opacity:0.5"></line>
+    <line x1="0" y1="0" x2="0" y2="-3" style="stroke:${color};stroke-width:0.1;stroke-opacity:0.5"></line>
+
+  </svg>
+</template>

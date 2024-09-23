@@ -1,0 +1,75 @@
+<template>
+
+  <div id="rankingmodal" class="w3-modal w3-small" oncontextmenu="return false;" show.bind="showcontextmenu">
+    <div class="w3-modal-content w3-small">
+     <header class="w3-container w3-teal">
+        <span click.delegate="closeContextMenu()"
+        class="w3-display-topright w3-btn w3-padding-4">&times;</span>
+        <span click.delegate="submitAnnotation()"
+        class="w3-display-bottomright w3-btn w3-padding-4">submit</span>
+        <b>anotace stimulu <span id="annotationtitle">${contextmenutitle}</span></b>
+      </header>
+      <div class="w3-container">
+        <textarea class="w3-input w3-border" id="annotationcontent" value.bind="content"></textarea>
+      </div>
+    </div>
+  </div>
+  <div contextmenu.delegate="contextMenuVoid()" ref="rankingel">
+    <!--div class="w3-center">${title}</div-->
+    <svg width="100%" height="100%" version="1.1" viewBox="-10 0 800 ${ymax}" style="border-style:solid;border-width:1px;"
+  xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  mouseup.delegate="mouseUp($event,1,1)"
+  mousemove.delegate="mouseMove($event)"><!--onload="ranking2d.init('ball',1)"-->
+  <!--balls -->
+  <g repeat.for="aui of audioinfo" 
+     dragy.bind="aui.y"
+     dragx.bind="aui.x" 
+     mouseup.trigger="contextMenu($event,aui,0)" 
+     mouseover.trigger="highlight(aui)"
+     transform="translate(${aui.x},${aui.y})" 
+     mousedown.trigger="mouseDown($event,aui)">
+    <rect style="opacity:0.50000000000000000;fill:#acd8e6;stroke:#000000;stroke-width:2;fill-opacity:1;stroke-opacity:1"
+    height="18" width="40" ry="9" rx="9" x="0" y="0"/>
+    <path style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
+          d="m 21,3 l 15,5 -15,5 0,-10 z" 
+          click.delegate="play(aui.id)" />
+    <title>${aui.title}</title>
+    <text x="4" y="11" font-size="10" fill="black" style="pointer-events: none;">${aui.textindex}</text> 
+  </g>
+  <!--educational balls at position -->
+  <g repeat.for="aui of edaudioinfo" 
+     dragy.bind="aui.y"
+     dragx.bind="aui.x"
+     mouseover.trigger="highlight(aui)"
+     transform="translate(${aui.x},${aui.y})">
+    <rect style="opacity:0.50000000000000000;fill:#ffeeaa;stroke:#000000;stroke-width:2;fill-opacity:1;stroke-opacity:1"
+    height="18" width="40" ry="9" rx="9" x="0" y="0"/>
+    <path style="fill:#ffeeaa;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" 
+          d="m 21,3 l 15,5 -15,5 0,-10 z" 
+          click.delegate="play(aui.id)" />
+    <title>${aui.title}</title>
+    <text x="4" y="11" font-size="10" fill="black" style="pointer-events: none;">${aui.textindex}</text> 
+  </g>
+  <!--g repeat.for="aui of maxaudioid" id.bind="'ball'+aui" dragy.bind="aui*ELEMENTWIDTH"
+  dragx="0" mouseup.delegate="contextMenu($event,${aui},);return false;" mouseover.delegate="highlight(${mapaudio[aui]})"
+  transform="translate(0,${aui*ELEMENTWIDTH})" mousedown.delegate="mouseDown($event)">
+  <rect style="opacity:0.50000000000000000;fill:#acd8e6;stroke:#000000;stroke-width:2;fill-opacity:1;stroke-opacity:1"
+  height="18"
+  width="40"
+  ry="9"
+  rx="9"
+  id="ball"
+  x="0"
+  y="0" 
+  />
+
+  <path style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 21,3 l 15,5 -15,5 0,-10 z" id="path3792" onclick="document.getElementsByTagName('audio')[${mapaudio[aui]}].play();" />
+  <title>audio[${mapaudio[aui]}]</title><text x="4" y="11" font-size="10" fill="black" style="pointer-events: none;">${mapaudio[aui]+1}</text> 
+  </g-->  
+  <!-- description -->
+  <text id="descx" x="0" y.bind="ymax-2" font-size="10" fill="black" style="pointer-events: none;">&#8594; ${xlabel} &#8594;</text>
+  <text id="descy" x="10" y.bind="ymax" font-size="10" fill="black" style="pointer-events: none;" transform="rotate(270,0,${ymax})">&#8594; ${ylabel} &#8594;</text>
+  </svg></div>
+  
+  </template>

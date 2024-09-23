@@ -1,0 +1,141 @@
+<template>
+  <require from="./quickreference"></require>
+  <require from="./editscreen"></require>
+  <require from="../components/ranking2d"></require>
+
+  <require from="../viewer/ext-jquery-ui.css"></require>
+  <require from="jquery-ui-dist/jquery-ui.css"></require>
+  <!-- CSS not applied here - see full preview -->
+  <!--require from="../viewer/psychotest.css"></require-->
+
+  <div class="w3-half" show.bind="!grapesjsview">    
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="!grapesjsview? 'w3-white' : 'w3-lightgrey'" click.delegate="hidegrapesjs()"><i class="fa fa-file-text-o"></i>
+      <span t="show-text-design">Text design</span>
+    </button>
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="grapesjsview? 'w3-white' : 'w3-lightgrey'" click.delegate="showgrapesjs()"><i class="fa fa-file-image-o"></i>
+      <span t="show-graph-design">Graphic design</span>
+    </button>    
+    <div class="w3-clear"></div>
+    <div class="w3-pale-green w3-tiny w3-round-large">${okmessage2} </div>
+    <div class="w3-pale-green w3-tiny w3-round-large">${okmessage} <span show.bind="loading"><i class="fa fa-spinner fa-spin"></i></span></div>
+    <div class="w3-pale-red w3-tiny w3-round-large">${errormessage}</div>
+    <br/>
+    <!--button class="w3-button w3-medium w3-hover-blue" click.delegate="create()"><i
+      class="fa fa-file-text-o"></i> <span t="[text]button-create;[title]button-create-title">Create New</span></button-->
+
+    <button class="w3-button w3-medium w3-hover-blue w3-pale-green" click.delegate="save()"><i class="fa fa-save"></i> <span
+      t="[text]button-save;[title]button-save-title">Save</span></button>
+    <button class="w3-button w3-medium w3-hover-blue w3-pale-green" click.delegate="saveas()"><i class="fa fa-save"></i> <span
+      t="[text]button-saveas;[title]button-saveas-title">Save As</span></button>
+    <span class="w3-button w3-white w3-medium"> <span t="test-name">Test name</span>: ${testid} </span>    
+    <div class="w3-clear"></div>
+
+    <div id="editor"></div>
+  </div>
+  <div class="w3-half" show.bind="!grapesjsview">
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="showpreview? 'w3-white' : 'w3-lightgrey'" click.delegate="generatepreview()"><i class="fa fa-refresh"></i>
+      <span t="title-preview">Preview</span>
+    </button>
+      <!--quickreference></quickreference-->
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="showreference? 'w3-white' : 'w3-lightgrey'"click.delegate="quickhelp()"><i class="fa fa-question"></i>
+      <span t="title-reference">Reference</span>
+    </button>
+
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px"  class.bind="showstimuli? 'w3-white' : 'w3-lightgrey'" click.delegate="showstimulilist()"><i class="fa fa-file-sound-o"></i>
+      <span t="title-stimuli-list">Stimuli List</span>
+    </button>
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px"  class.bind="showurl? 'w3-white' : 'w3-lightgrey'" click.delegate="showtesturl()"><i class="fa fa-address-card-o"></i>
+      <span t="title-test-url">Test url</span>
+    </button>
+    <button class="w3-medium w3-button w3-hover-blue w3-pale-green" click.delegate="viewtest()"><i class="fa fa-play-circle"></i>
+      <span t="title-play">Test play</span>
+    </button>
+    <div class="w3-card">
+      <div ref="preview" show.bind="showpreview">
+        <dynamic-html html.bind="previewinnerHTML"></dynamic-html>
+      </div>
+
+      <div show.bind="showreference" class="w3-tiny">
+        <quickreference></quickreference>
+      </div>
+
+      <div show.bind="showstimuli">
+        <table class="w3-stripped">
+          <tr><td colspan="4"><span t="path">Path</span>: ${currentsource}${currentfolder}</td>
+            <td>
+              <button class="w3-button" click.delegate="refresh()"><i class="fa fa-refresh"></i><span t="refresh">Refresh</span></button>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <th t="filename">Filename</th>
+            <th t="size">Size</th>
+            <th t="last-modified">Last Modified</th>
+            <!--th t="actions">Actions</th-->
+          </tr>
+          <tr show.bind="numberresults > 0">
+            <td colspan="3" class="w3-center"><i class="fa fa-external-link"></i>
+              <a route-href="route: results"><i class="fa  fa-bar-chart"></i> <b>(${numberresults})</b> <b t="result-in-directory">Results detected </b></a></td>
+          </tr>
+          <tr repeat.for="test of files">
+            <td><i show.bind="! test.isdir" class="fa fa-file-o" t="[title]file"></i><i show.bind="test.isdir" class="fa fa-folder-o" t="[title]directory"></i> </td>
+            <td class="w3-hover-light-blue">
+              <span class="w3-block"show.bind="! test.isdir" click.delegate="openstimuli(test.name)">
+                ${test.name}<br/></span>
+              <span class="w3-block" show.bind="test.isdir" click.delegate="opendir(test)"><b>${test.name}</b></span>
+            </td>
+            <td class="w3-small">${test.size}</td>
+            <td class="w3-small">${test._updated}</td>
+            <td show.bind="! test.isdir">
+              <!--button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="openTest(test)">&nbsp;<i class="fa fa-play-circle-o" t="[title]play"></i>&nbsp;</button>
+              <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="copyTest(test)"><i class="fa fa-copy" t="[title]copy"></i></button>
+              <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="downloadTest(test)"><i class="fa fa-download" t="[title]download"></i></button>
+              <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="archiveTest(test)"><i class="fa fa-archive" t="[title]archive" ></i></button-->
+            </td>
+          </tr>
+          <tr show.bind="isloading">
+            <td colspan="2"><span t="loading">Loading ...</span> <i class="fa fa-spinner fa-spin fa-fw"></i></td>
+          </tr>
+        </table>
+
+      </div>
+      <div show.bind="showurl" class="w3-tiny">
+        <p t="url-performtest">URL</p>
+        <p style="overflow-wrap:break-word"><a href="${testurl}">${testurl}</a></p>
+        <textarea ref="testurlinput"readonly value.bind="testurl" style="overflow:hidden;resize:none" ></textarea>
+
+        <p><button click.delegate="copyurlclipboard()">Copy to clipboard</button></p>
+        <p t="url-directtest">URL direct</p>
+        <p style="overflow-wrap:break-word"><a href="${directtesturl}">${directtesturl}</a></p>
+        <textarea ref="directtesturlinput"readonly value.bind="directtesturl" style="overflow:hidden;resize:none"></textarea>
+
+        <p><button click.delegate="copydirecturlclipboard()">Copy to clipboard</button></p>
+
+      </div>
+    </div>
+  </div>
+  <!-- show grapejs view - in a different mode -->
+  <div class="" show.bind="grapesjsview">
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="!grapesjsview? 'w3-white' : 'w3-lightgrey'" click.delegate="hidegrapesjs()"><i class="fa fa-file-text-o"></i>
+      <span t="show-text-design">Text design</span>
+    </button>
+    <button class="w3-medium w3-button w3-hover-white w3-border-top w3-border-right w3-border-left" style="margin-bottom:-2px" class.bind="grapesjsview? 'w3-white' : 'w3-lightgrey'" click.delegate="showgrapesjs()"><i class="fa fa-file-image-o"></i>
+      <span t="show-graph-design">Graphic design</span>
+    </button>    
+    <div class="w3-clear"></div>
+    <div class="w3-row">
+      <div class="w3-col m1 l2">
+        <div class="w3-hover-blue w3-small" repeat.for="screen of testscreens" class.bind="screen.selected? 'w3-gray': ''"click.delegate="showgrapesjsScreen(screen)">
+          <b>Screen </b>${$index+1}.<br/>
+          <i>&nbsp;&nbsp;${screen.name}</i>
+        </div>
+      </div>
+      <div class="w3-rest">
+        <editscreen></editscreen>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="w3-clear"></div>
+</template>

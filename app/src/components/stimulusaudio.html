@@ -1,0 +1,19 @@
+<template>
+  <nav class='stimulus sounds'>
+    <span repeat.for="i of sources.length">
+    <div id.bind='$parent.zoomids[i]'></div>
+    <div id.bind='$parent.overviewids[i]'></div>
+
+    <button class='sound-button'
+           click.delegate='play($parent.ids[i])'
+           show.bind="showbutton" disabled.bind="play_disabled">${label} <span class="w3-tiny" show.bind="shownum">${groupnum+i}</span></button>
+    <audio id.bind='$parent.ids[i]' controls.bind="showcontrols" >
+      <source src='${base}${sources[i]}' type='audio/${types[i]}'/>
+    </audio>
+      <div show.bind="showpeaks">
+        <button id="zoomIn" class="button">Přiblížit ++</button>
+        <button id="zoomOut" class="button">Oddálit --</button>
+      </div>
+      </span>
+  </nav>
+</template>

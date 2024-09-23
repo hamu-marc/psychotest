@@ -1,0 +1,56 @@
+<template>
+  <require from="handsontable/dist/handsontable.full.css"></require>
+  <h1 t="title-results">Results</h1>
+  <div class="w3-row">
+  <div class="w3-col s12 l5">
+    <div t="result-instruction"></div>
+    <div show.bind="noresults">
+      <span t="no-results">No results found in this location. Go to </span><a href="#/" t="dashboard">Dashboard</a>
+    </div>
+
+    <table class="w3-stripped w3-border" show.bind="!noresults">
+    <tr><td colspan="4"><span t="path">Path</span>: ${currentsource}/${currentfolder}</td></tr>
+    <tr>
+      <th><input type="checkbox" change.delegate="selectAllResults($event.target.checked)" t="[title]select-deselect-all-results"/></th>
+      <th></th>
+      <th t="result-title">Title</th>
+      <th t="size">Size</th>
+      <th click.delegate="sortByDate()" class="w3-hover-blue-gray"><span t="last-modified" >Last Modified</span> <i class="fa fa-arrow-down" show.bind="!ascending"></i><i class="fa fa-arrow-up" show.bind="ascending"></i></th>
+      <!--th t="actions">Actions</th-->
+    </tr>
+    <tr repeat.for="result of tests" class="w3-small">
+      <td><i class.bind="result.selected ? 'fa fa-check-square-o' : 'fa fa-square-o'" click.delegate="checkUncheck(result)"></i></td> <!--model.bind="result" checked.bind="selectedResults"-->
+      <td><i class="fa fa-file-o" t="[title]file"></i></td>
+      <td class="w3-hover-light-blue">
+        <span class="w3-block"show.bind="! result.isdir" click.delegate="openresult(result)"> ${result.name}</span>
+      </td>
+      <td>${result.size}</td>
+      <td>${result._updated}</td>
+    </tr>
+    <tr show.bind="isloading">
+      <td colspan="2"><span t="loading">Loading ...</span> <i class="fa fa-spinner fa-spin fa-fw"></i></td>
+    </tr>
+  </table>
+  </div>
+    <div class="w3-col s12 l7">
+      <span t="result-showing">Results</span>
+      <button class="w3-button" click.delegate="mergeExcel()" t="merge-excel;[title]export-excel-detail">Merge XLSX</button>
+      <button class="w3-button" click.delegate="mergeODS()" t="merge-ods;[title]export-ods-detail">Merge ODS</button>
+      <button class="w3-button" click.delegate="mergeCSV()" t="merge-csv;[title]export-csv-detail">Merge CSV</button>
+    <div show.bind="showdetail">
+      <button class="w3-button" click.delegate="generateAndSaveExcel()" t="export-excel;[title]export-excel-detail">Export XLSX</button>
+      <button class="w3-button" click.delegate="generateAndSaveOds()" t="export-ods;[title]export-ods-detail">Export ODS</button>
+      <button class="w3-button" click.delegate="generateAndSaveCSV()" t="export-csv;[title]export-csv-detail">Export CSV</button>
+      <!--button class="w3-button" click.delegate="download()">Stáhnout CSV</button-->
+      <!--button class="w3-button" click.delegate="mergeResultCSV()">Sloučit výsledky CSV</button-->
+      <span show.bind="merging"><i class="fa fa-spinner fa-spin"></i></span>
+<table class="w3-table-all w3-tiny">
+  <tr repeat.for="row of data">
+    <td repeat.for="cell of row">${cell}</td>
+  </tr>
+</table>
+    </div>
+    </div>
+  </div>
+
+</template>

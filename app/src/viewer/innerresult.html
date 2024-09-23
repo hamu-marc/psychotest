@@ -1,0 +1,21 @@
+<template>
+    <div class="w3-right w3-tiny" show.bind="!showresult">
+        <a class="w3-pale-green w3-closenav" t="previous-results" click.delegate="show()">previous results</a>|        
+      </div>
+
+  <span class="w3-clear"></span>
+    <div class="w3-panel w3-border" show.bind="showresult">
+      <div class="w3-right w3-tiny" >
+        <a class="w3-pale-green w3-closenav" title="show previous results" click.delegate="hide()">&times;</a>|        
+      </div>
+      <div class="w3-row">
+      <div class="w3-padding w3-show-inline-block w3-small" repeat.for="result of results">
+        <div class="w3-card w3-button w3-pale-green" click.delegate="saveResult(result)">
+        <b>${result.name}</b><br/>
+        ${result.date}
+        </div>    
+      </div>
+    </div>
+    </div>
+
+</template>

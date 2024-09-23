@@ -1,0 +1,4 @@
+<template>
+  <button show.bind="!segment" class="w3-button" style="color:#000!important;background-color:${color}!important" click.delegate="addpoint()" title="Přidat jeden bod do právě přehrávané části zvuku">Označit</button>
+  <button show.bind="segment" class="w3-button" style="color:#000!important;background-color:${color}!important" click.delegate="addsegment()" title="Přidat jeden segment do právě přehrávané části zvuku">Označit segment</button>
+</template>

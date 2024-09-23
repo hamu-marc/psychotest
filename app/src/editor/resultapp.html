@@ -1,0 +1,18 @@
+<template>
+  <require from="../w3.css"></require>
+
+  <require from="../components/heads.css"></require>
+  <require from="../components/sharedheader.html"></require>
+  <require from="../components/sharedfooter.html"></require>
+  <require from="../components/nav-bar.html"></require>
+  <sharedheader></sharedheader>
+  <nav-bar router.bind="router"></nav-bar>
+
+  <div class="w3-card-2 w3-white w3-margin w3-padding">
+    <router-view></router-view>
+  </div>
+
+
+  <sharedfooter></sharedfooter>
+
+</template>

@@ -1,0 +1,12 @@
+<template bindable="color">
+  <require from="./taskscale.css"></require>
+  
+  <fieldset class.bind="color"><legend>${title}</legend>
+    <p class="w3-center w3-label">
+      <input class="sliderlabel" readonly="true" type="text" value.bind="value">
+    </p>
+    <div ref="slider"></div>
+    <br/>
+    <br/>
+  </fieldset>
+</template>

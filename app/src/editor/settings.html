@@ -1,0 +1,52 @@
+<template>
+  <require from="./add-provider"></require>
+  <!--require from="./edit-provider"></require-->
+  <h1 t="title-settings">Settings</h1>
+
+  <div>
+    <p><span t="settings-langdialogs">Dialog language</span> (${locale}) </p>
+    <span class="w3-large">
+    <button click.delegate="setEnglish()">EN</button><button click.delegate="setCzech()">CZ</button>
+  </span>
+  </div>
+  <div>
+    <i class="fa fa-eye" click.delegate="toggleshowpassword()"></i>
+    <table class="w3-table w3-striped w3-border w3-card-2">
+      <thead>
+      <tr class="w3-pale-green">
+        <th><span t="providerid">Id </span></th>
+        <th><span t="providertype">Provider type </span></th>
+        <th><span t="downloadlink">Download link</span><i class="fa fa-eye" click.delegate="toggleshowpassword()"
+                                                          t="[title]showpassword"></i></th>
+        <th><span t="uploadlink">Upload link</span><i class="fa fa-eye" click.delegate="toggleshowpassword()"
+                                                      t="[title]showpassword"></i></th>
+        <th><span t="resultlink">Result link</span><i class="fa fa-eye" click.delegate="toggleshowpassword()"
+                                                      t="[title]showpassword"></i></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr repeat.for="[key,remoteitem] of remoteitems">
+        <td>${key}</td>
+        <td>${remoteitem.type}</td>
+        <td><span if.bind="showpassword" class="w3-tiny">${remoteitem.downloadtoken}</span><span
+          if.bind="!showpassword"><i class="fa fa-ellipsis-h"></i></span></td>
+        <td><span if.bind="showpassword" class="w3-tiny">${remoteitem.uploadtoken}</span><span
+          if.bind="!showpassword"><i class="fa fa-ellipsis-h"></i></span></td>
+        <td><span if.bind="showpassword" class="w3-tiny">${remoteitem.resulttoken}</span><span
+          if.bind="!showpassword"><i class="fa fa-ellipsis-h"></i></span></td>
+        <td>
+          <button class="w3-button w3-medium w3-hover-blue" click.delegate="startEdit(key)"><i
+            class="fa fa-edit" t="[title]edit"></i></button>
+          <button class="w3-button w3-medium w3-hover-blue" click.delegate="delete(key)"><i
+            class="fa fa-remove" t="[title]delete"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <br/>
+    <div class="w3-table w3-border">
+        <add-provider></add-provider>
+    </div>
+  </div>
+
+</template>

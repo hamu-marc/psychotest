@@ -1,0 +1,60 @@
+<template>  
+  <require from="jquery-ui-dist/jquery-ui.css"></require>  
+  <require from="./switchlang"></require>  
+  <require from="../components/taskimage"></require>
+  <require from="../components/taskvideo"></require>
+  <require from="../components/stimulusaudio"></require>
+  <require from="../components/ranking2d"></require>
+
+  <div class="au-animate animate-fade-in animate-fade-out" css="${templatestyle}">
+    <div show.bind="state==4">
+      <p align="center">Vyplňování testu bylo přerušeno a stav uložen.</p>
+
+      <p align="center">Vyplňování testu můžete obnovit na následující adrese:</p>
+      <a align="center" class="w3-pale-green w3-button"
+         route-href="route: resumetest; params.bind: {resumeid: resumeid}">${pausedtesturl}</a>.
+
+      <p align="center">Pokud jste přihlášeni, tento link na přerušené testy se zobrazí v seznamu testů.</p>
+      <p align="center">Administrátor testu rovněž obdržel link pro obnovu tohoto testu.</p>
+
+      <p align="center">Pokud chcete vybrat jiný test, klikněte zde:<a class="w3-pale-green w3-button"
+                                                                       route-href="route: dashboard">Select another test
+        <inext></inext>
+      </a>
+      <p align="center">Pro ukončení, zavřete okno prohlížeče</p>
+    </div>
+    <div show.bind="state==1 || state==5">
+      <switchlang></switchlang>
+      <div show.bind="state==1"><h1 t="psychotest-title">Psychoakustický a psychovizuální test.</h1></div>
+      <div show.bind="state==5"><h1 t="resume-test-title">Obnova přerušeného testu.</h1></div>
+      <p t="psychotest-row-screen">Doporučujeme přepnout na režim plné obrazovky (Full screen)
+        tlačítkem F11 na klávesnici.</p>
+      <p>
+        <span  t="psychotest-row-buttons1">Pro zahájení testu stiskněte tlačítko </span>
+        <span class="w3-pale-green" t="button-start">START</span>
+        <span t="psychotest-row-buttons2"> níže na obrazovce, na konci se test ukončí tlačítkem</span>
+        <span class="w3-pale-green" t="button-finalize">KONEC,ULOZ VYSLEDKY.</span></p>
+
+      <a class="w3-pale-green w3-button w3-left" show.bind="showstart" click.delegate="starttest()">START</a>
+    </div>
+    <div show.bind="state==2">
+      <span id="notification"></span>
+      <span class="w3-pale-green" show.bind="loading"> <span t="perform-loading">Nahrávání testu a příprava obrazovek</span> <i class="fa fa-spinner fa-spin"></i></span>
+      <div ref="preview" id="testdiv">
+          <dynamic-html html.bind="previewinnerHTML"></dynamic-html>
+      </div>
+
+      <!--a class="w3-pale-green w3-button w3-left" show.bind="showprev" click.delegate="previtem()">&lt; PŘEDCHOZÍ</a>
+
+      <a class="w3-pale-green w3-button w3-left" show.bind="showpause" click.delegate="pausetest()">Přerušit</a-->
+
+      <a class="w3-pale-green w3-button w3-right" show.bind="shownext" click.delegate="nextitem()"><span t="button-next">DALŠÍ</span> &gt;</a>
+
+      <a class="w3-pale-green w3-button w3-right" show.bind="showsubmit" click.delegate="submittest()"
+         route-href="route: finalize; params.bind: {id: testid }"><span t="button-finalize">UKONČI A ULOŽ VÝSLEDKY</span> &gt; </a>
+    </div>
+
+  <span class="w3-clear"></span>
+
+</div>
+</template>

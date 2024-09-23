@@ -1,0 +1,65 @@
+<template>
+  <require from="./add-provider"></require>
+  <!--div class="w3-border-bottom w3-padding-top">
+<a style="padding-top:6px;padding-bottom:3px;padding-left:16px;padding-right:16px" class.bind="(mode == 'projects') ? 'w3-white w3-border-top w3-border-left w3-border-right' : 'w3-dark-grey'" click.delegate="switchProjects()" t="projects">Projects</a>
+<a style="padding-top:6px;padding-bottom:3px;padding-left:16px;padding-right:16px" class.bind="(mode == 'tests') ? 'w3-white w3-border-top w3-border-left w3-border-right' : 'w3-dark-grey'" click.delegate="switchTests()" t="tests">Tests</a>
+</div-->
+
+    <h2 t="select-test">Select Test</h2>
+
+    <table class="w3-stripped w3-border">
+      <tr><td colspan="4"><span t="path">Path</span>: ${currentsource}/${currentfolder}</td>
+        <td>
+          <button class="w3-button" click.delegate="refresh()"><i class="fa fa-refresh"></i><span t="refresh">Refresh</span></button>
+        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <th t="title">Title</th>
+        <th t="size">Size</th>
+        <th click.delegate="sortByDate()" class="w3-hover-blue-gray"><span t="last-modified" >Last Modified</span> <i class="fa fa-arrow-down" show.bind="!ascending"></i><i class="fa fa-arrow-up" show.bind="ascending"></i></th>
+        <!--th t="actions">Actions</th-->
+      </tr>
+      <tr show.bind="numberresults > 0">
+        <td colspan="3" class="w3-center"><i class="fa fa-external-link"></i>
+        <a route-href="route: results"><i class="fa  fa-bar-chart"></i> <b>(${numberresults})</b> <b t="result-in-directory">Results detected </b></a></td>
+      </tr>
+      <tr repeat.for="test of tests">
+        <td><i show.bind="! test.isdir" class="fa fa-file-o" t="[title]file"></i><i show.bind="test.isdir" class="fa fa-folder-o" t="[title]directory"></i> </td>
+        <td class="w3-hover-light-blue">
+          <a class="w3-block"show.bind="! test.isdir" route-href="route: edittest; params.bind: {id:test.name, source:currentsource, path:currentfolder}">
+          <div>${test.name}<br/> <i class="w3-tiny">${test.snippet}</i></div></a>
+          <span class="w3-block" show.bind="test.isdir" click.delegate="opendir(test)"><b>${test.name}</b></span>
+        </td>
+        <td class="w3-small">${test.size}</td>
+        <td class="w3-small">${test._updated}</td>
+        <td show.bind="! test.isdir">
+          <!--button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="openTest(test)">&nbsp;<i class="fa fa-play-circle-o" t="[title]play"></i>&nbsp;</button>
+          <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="copyTest(test)"><i class="fa fa-copy" t="[title]copy"></i></button>
+          <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="downloadTest(test)"><i class="fa fa-download" t="[title]download"></i></button>
+          <button class="w3-medium w3-white w3-margin-0 w3-padding-0 w3-button w3-hover-light-blue" click.delegate="archiveTest(test)"><i class="fa fa-archive" t="[title]archive" ></i></button-->
+        </td>
+      </tr>
+      <tr show.bind="isloading">
+        <td colspan="2"><span t="loading">Loading ...</span> <i class="fa fa-spinner fa-spin fa-fw"></i></td>
+      </tr>
+    </table>
+    <!--div show.bind="isRoot">
+      <table>
+        <add-provider></add-provider>
+      </table>
+    </div-->
+  <div show.bind="!isRoot">
+    <button class="w3-button w3-medium w3-hover-blue" click.delegate="createTest()"><i class="fa fa-file"></i> <span t="create-test">Create New Test</span></button>
+    <button class="w3-button w3-medium w3-hover-blue" click.delegate="createFolder()"><i class="fa fa-folder"></i> <span t="create-folder">Create New Folder</span></button>
+    <div show.bind="creatingTest" class="w3-border">
+      <span t="create-test-path-description">The test will be created in </span> <span t="storage-provider">storage provider</span>${currentsource} <span t="path">path</span>:${currentfolder}<br/>
+      <span t="create-test-specify-test-name">Specify test name:</span> <input type="text" value.bind="newtestname"/>.ptest <a class="w3-button w3-green" click.delegate="submitNewTest()"><i class="fa fa-check"></i></a><button class="w3-button w3-red" click.delegate="cancelNewTest()"><i class="fa fa-times"></i></button>
+    </div>
+    <div show.bind="creatingFolder" class="w3-border">
+      <span t="create-test-folder-description">The folder will be created in </span> <span t="storage-provider">storage provider</span>${currentsource} <span t="path">path</span>:${currentfolder}<br/>
+      <span t="create-test-specify-test-name">Specify folder name:</span> <input type="text" value.bind="newfoldername"/><button class="w3-button w3-green" click.delegate="submitNewFolder()"><i class="fa fa-check"></i></button><button class="w3-button w3-red" click.delegate="cancelNewFolder()"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+  </div>
+</template>

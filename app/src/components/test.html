@@ -1,0 +1,16 @@
+<template>
+  <require from="font-awesome/css/font-awesome.min.css"></require>
+  <require from="../w3.css"></require>
+  <require from="../components/heads.css"></require>
+  <require from="./stimulusaudio"></require>
+  <require from="./ranking2d"></require>
+
+  <div class="w3-card">
+    <h1>stimulusaudio</h1>
+    <stimulusaudio src="1.wav|2.wav|3.wav" base="stimuli/"></stimulusaudio>
+    <h1>ranking2d</h1>
+    <ranking2d def="hlasitost(nejmenší-největší);drsnost(žádná-střední-velká)" audiolength="3"></ranking2d>
+  </div>
+
+
+</template>

@@ -1,0 +1,36 @@
+<template>
+  <require from="./stimulus.css"></require>
+
+  <div if.bind="options.isbutton">
+    <input class='sound-button' type='button' click.delegate="play()"/>
+    <audio id.bind="options.id">
+      <source src.bind="options.src" type.bind="options.type"/>
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div if.bind="options.iscontrols">
+    <audio if.bind="options.iscontrols" id.bind="options.id" controls>
+      <source src.bind="options.src" type.bind="options.type"/>
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div if.bind="options.iswaveform">
+    <div ref="peakscontainer">
+      <div ref="zoomviewcontainer" class="zoomview"></div>
+      <div ref="overviewcontainer" class="overview"></div>
+    </div>
+    <audio id.bind="options.id" controls>
+      <source src.bind="options.src" type.bind="options.type"/>
+      Your browser does not support the audio element.
+    </audio>
+    <div id="controls">
+      <button id="zoomIn" class="button">Zoom In</button>
+      <button id="zoomOut" class="button">Zoom Out</button>
+      <button id="segment" class="button">Add Segment</button>
+      <button id="point" class="button">Add Point</button>
+    </div>
+  </div>
+
+</template>

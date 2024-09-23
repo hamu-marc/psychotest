@@ -1,0 +1,36 @@
+<template bindable="router">
+
+  <div class="w3-navbar w3-white w3-xlarge">
+    <table class="w3-left w3-padding-4 w3-margin-left w3-text-blue-grey" style="line-height:0.2;font-family: Garamond,Serif">
+      <tr>
+        <td rowspan="2">
+    <span class="w3-xlarge" style="vertical-align:text-bottom">
+      <i>PSYCHO</i>
+    </span>
+        </td>
+        <td>
+    <span class="w3-small">
+      acoustic
+    </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+    <span class="w3-small">
+      visual
+    </span>
+        </td>
+        <td><span class="w3-tiny">&nbsp;${version}</span></td>
+      </tr>
+
+    </table>
+    <a repeat.for="row of router.navigation"
+       class="${row.isActive ? 'w3-button w3-padding-4 w3-border-1 w3-white' : 'w3-button w3-padding-4'}"
+       href.bind="row.href"
+       t="[title]${row.title}">
+      <i class.bind="row.settings.icon"></i>
+      <i if.bind="row.settings.icon2" class.bind="row.settings.icon2"></i>
+    </a>
+  </div>
+</template>
+

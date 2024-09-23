@@ -1,0 +1,11 @@
+<template>    
+    <fieldset class.bind="color"><legend>${title}</legend>
+        <span repeat.for="myvalue of valuesArray">
+            <input id="valueinput_${myvalue}" type="radio" name="otazka" value.bind="myvalue"
+            click.delegate="setAnswer($myvalue)"><label for="valueinput_${myvalue}"
+            class="answer"><span><span></span></span>${myvalue}</label>
+            &nbsp; &nbsp;
+            <br if.bind="rowbetweenvalues"/>
+        </span>        
+    </fieldset>    
+</template>

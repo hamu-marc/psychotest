@@ -1,0 +1,22 @@
+<template>
+  <require from="./switchlang"></require>
+  <require from="./innerresult"></require>    
+  <div class="au-animate animate-fade-in animate-fade-out w3-center">
+
+    <!--a show.bind="!islogged" class="w3-right w3-button w3-pale-green" href.bind="loginurl">Přihlásit</a>
+    <a show.bind="islogged" class="w3-right w3-button w3-pale-green" href.bind="logouturl">Odhlásit</a-->
+    <switchlang></switchlang>
+    <p><span t="select-test">Vyberte psychoakustický test</span>:</p>
+      <div style="max-width: 700px; margin:auto" repeat.for="test of tests">
+        <div class="w3-card-2 w3-padding w3-center">
+        <p>
+        <a class="w3-pale-green w3-button" route-href="route: performtest; params.bind: {encid: test._id}">${test.name}<inext></inext></a>
+        </p>
+        <div class="w3-justify w3-small" innerhtml.bind="test.description"></div>
+        </div>
+        <div class="w3-margin w3-clear"></div>
+      </div>
+      <innerresult></innerresult>
+  </div>
+
+</template>

@@ -1,0 +1,18 @@
+<template>
+  <require from="./stimulus"></require>
+  <require from="./text"></require>
+  <require from="./task"></require>
+  <p>
+    <span t="screen">Page</span> ${parsed.number}<span t="of">of</span> ${parsed.of}.</span>
+    <h3>${parsed.description}</h3>
+  </p>
+  <div class="w3-block" repeat.for="row of parsed.rows">
+     <stimulus if.bind="row.isstimulus" options.bind="row" index.bind="$index"></stimulus>
+     <text if.bind="row.istext" options="$row"></text>
+     <task if.bind="row.istask" options="$row"></task>
+    <values if.bind="row.isvalues" options="$row"></values>
+  </div>
+  <p>
+  <span t="screen">Page</span> ${parsed.number}<span t="of">of</span> ${parsed.of}.</span>
+  </p>
+</template>

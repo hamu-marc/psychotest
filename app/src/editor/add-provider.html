@@ -1,0 +1,37 @@
+<template>
+<table>
+<tr>
+  <td  show.bind="!creatingRemote">
+    <button class="w3-button w3-medium w3-hover-blue" click.delegate="startCreateRemote()"><i
+      class="fa fa-file" t="[title]new"></i> <span t="settings.newremote">create new remote</span> </button>
+  </td>
+  <td show.bind="creatingRemote"><label class="w3-label" t="settings.remotetype">type</label></td>
+  <td show.bind="creatingRemote"><label class="w3-label" t="settings.remoteid">id</label></td>
+  <td show.bind="creatingRemote"><label class="w3-label" t="settings.remotedownloadtoken">download token</label></td>
+  <td show.bind="creatingRemote"><label class="w3-label" t="settings.remoteuploadtoken">upload token</label></td>
+  <td show.bind="creatingRemote"><label class="w3-label" t="settings.remoteresulttoken">result token</label></td>
+</tr>
+
+<tr show.bind="creatingRemote">
+  <td>
+    <select value.bind="newtype" class="w3-select">
+      <option value="null">Choose...</option>
+      <option repeat.for="[key,remotetype] of api.remotetype"
+              value.bind="remotetype.type">
+        ${remotetype.title}
+      </option>
+    </select>
+  </td>
+  <td>        <input class="w3-input" value.bind="newid"/></td>
+
+  <td><input class="w3-input w3-tiny" value.bind="newdownloadtoken"/></td>
+  <td><input class="w3-input w3-tiny" value.bind="newuploadtoken"/></td>
+  <td><input class="w3-input w3-tiny" value.bind="newresulttoken"/></td>
+  <td><button class="w3-button w3-medium w3-hover-blue" click.delegate="submitCreateRemote()"><i
+    class="fa fa-check"></i> <span t="settings.submitremote">submit new remote</span></button>
+    <button class="w3-button w3-medium w3-hover-blue" click.delegate="cancelCreateRemote()"><i
+      class="fa fa-times"></i> <span t="settings.cancelremote">cancel new remote</span></button>
+  </td>
+</tr>
+</table>
+</template>

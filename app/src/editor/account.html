@@ -1,0 +1,33 @@
+<template>
+  <require from="firebaseui/dist/firebaseui.css"></require>
+  <h3 t="title-account">Account</h3>
+  <div show.bind="!api.islogged">
+    <!--a class="w3-button w3-hover-blue" href.bind="loginurl">Login B2Access</a-->
+    <div id="firebaseui-auth-container"></div>
+  </div>
+  <div show.bind="api.islogged">
+    Logged in.<br/>
+    <table class="w3-border w3-striped w3-card-2 w3-padding">
+      <tr>
+        <td>Name</td><td>${api.userinfo.displayName}</td>
+      </tr>
+      <tr>
+        <td>Email</td><td>${api.userinfo.email}</td>
+      </tr>
+      <tr>
+        <td>ID</td><td>${api.userinfo.uid}</td>
+      </tr>
+    </table>
+    <br/>
+    <button class="w3-button w3-hover-blue" click.delegate="logout()">Sign Out from Psychotest</button>
+    <i class="w3-small">Close the window after sign out.</i>
+    <!--table>
+      <tr><td>If on public computer:</td><td><a class="w3-button w3-hover-blue" href.bind="logoutb2access" target="_blank">Logout from B2Access first</a></td></tr>
+      <tr><td><i class="w3-small">B2Access session won't be presserved</i> Then </td><td><a class="w3-button w3-hover-blue" href.bind="logouturl">Logout from Psychotest</a></td></tr>
+      <tr><td>-</td></tr>
+      <tr><td>On private computer, just </td><td><a class="w3-button w3-hover-blue" href.bind="logouturl">Logout from Psychotest</a></td></tr>
+      <tr><td><i class="w3-small">B2Access session is preserved for other apps.</i></td></tr>
+    </table-->
+
+  </div>
+</template>

@@ -1,0 +1,19 @@
+<template>
+  <div  class="au-animate animate-fade-in animate-fade-out">
+    <p align="center" t="finalize-row1">Děkujeme za vyplnění testu.</p>
+    <p></p>
+    <p show.bind="api.uploading" align="center"><span t="finalize-saving-results"> Ukládání výsledků ... </span><i class="fa fa-spinner fa-spin"></i></p>
+    <p show.bind="api.uploadinglong" align="center w3-yellow" t="finalize-saving-long"> Ukládání výsledků trvá déle než obvykle. Stáhněte výsledek pomocí tlačítek níže:</p>
+    <p show.bind="!api.lastResultSaved" class="w3-red"><b t="finalize-save-local"> Výsledky nebyli uloženy na vzdálený server. Stáhněte výsledek pomocí tlačítek níže: </b></p>
+    <p show.bind="api.lastResultSaved" align="center" t="finalize-result-can-be-downloaded">výsledek pro vlastní potřebu můžete stáhnout zde:</p>
+    <p align="center">
+      <button class="w3-pale-green w3-button" click.delegate="downloadResult()" t="finalize-raw-results">Hrubé výsledky</button>
+      <button class="w3-pale-green w3-button" click.delegate="downloadXLSX()" t="finalize-xlsx-results">Výsledky do XLSX</button>
+    </p>
+    <p align="center"><span t="finalize-repeat">Pokud chcete test opakovat, jdete na </span><a class="w3-pale-green w3-button" route-href="route: performtest; params.bind: { encid: testid }"><span t="button-restart-same">Restart same test </span><inext></inext></a></p>
+    <p align="center"><span t="finalize-select">nebo vybrat jiný test, klikněte zde:</span><a class="w3-pale-green w3-button" route-href="route: dashboard"><span t="button-select-another">Select another test</span> <inext></inext></a></p>
+    <p align="center" t="finalize-close">Pro ukončení, zavřete okno prohlížeče</p>
+    </p>
+  </div>
+
+</template>

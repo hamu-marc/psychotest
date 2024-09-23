@@ -1,0 +1,22 @@
+<template>
+  <nav class='stimulus videos' ref="videocontainer">
+    <div repeat.for="source of sources" style="position:relative;cursor:crosshair">
+      <video id="${source.id}" style="max-width:100%;width:100%" width="${source.width}" height="${source.height}" click.delegate="addPoint($event)" ref="videoref" contextmenu.delegate="removePoint($event)">
+        <source src="${base}${source.src}" type="video/mp4"/>
+      </video>
+      <i repeat.for="point of points" class="fa fa-crosshairs" css="position:absolute;left:${point.iconx}%;top:${point.icony}%;color:${color};margin-left:-6px;margin-top:-7px" contextmenu.delegate="removePoint($event)"></i>
+    </div>
+    <div show.bind="showcontrols" class.bind="controlclass">
+
+    <progress style="width: 100%"ref="myprogress" max="100"  value.bind="progressvalue" min="0" click.delegate="setPosition($event)"></progress>
+    <button class="w3-btn" click.delegate="play()" t="[title]play" show.bind="!playing"><i class="fa fa-play"></i></button>
+    <button class="w3-btn" click.delegate="pause()" t="[title]pause" show.bind="playing"><i class="fa fa-pause"></i></button>
+    <button class="w3-btn" click.delegate="stop()" t="[title]stop"><i class="fa fa-stop"></i></button>
+    <button class="w3-btn" click.delegate="back()" t="[title]rewind2s"><i class="fa fa-backward"></i></button>
+    <button class="w3-btn" click.delegate="forward()" t="[title]forward2s"><i class="fa fa-forward"></i></button>
+    <button class="w3-btn" click.delegate="fullscreen()" t="[title]fullscreen" ref="fsbutton"><i class="fa fa-arrows"></i></button>
+    <span class="w3-tiny w3-monospace" style="display:inline-block; width: 46px;overflow: hidden">${videoref.currentTime}</span>
+    </div>
+
+  </nav>
+</template>

@@ -1,0 +1,10 @@
+.zoomview, .overview {
+  width: 100%;
+  height: 200px;
+  margin: 12px auto;
+  background-color: #fefefe;
+  border: 1px solid #eaeaea;
+  -webkit-box-shadow: 0 0 3px #a0a0a0;
+  -moz-box-shadow: 0 0 3px #a0a0a0;
+  box-shadow: 0 0 3px #a0a0a0;
+}

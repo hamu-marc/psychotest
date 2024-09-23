@@ -1,0 +1,7 @@
+<template>
+  <div style.bind="evaluating ? activestyle : passivestyle">
+    <button class="w3-button" style="color:#000;background-color:${color}" click.delegate="evaluateTask()" t="task-image-button">Hodnotit</button>
+    <span><i  style="color:${color}!important" class="fa fa-crosshairs" title="symbol" ref="symbolelement"></i>
+    <span t="task-image">Nejprve stisknete tlačítko a pak vyberte myší pozici na videu - levé tlačítko přidá bod, pravé tlačítko odebere bod</span></span>
+  </div>
+</template>

@@ -1,0 +1,9 @@
+<template>
+  <nav class='stimulus pictures'>
+    <div style="position:relative">
+    <img style="width:100%" repeat.for="source of sources" id.bind="source.id" src="${base}${source.src}" width.bind="source.width" height.bind="source.height" click.delegate="addPoint($event)" contextmenu.delegate="removePoint($event)" />
+    <i repeat.for="point of points" class="fa fa-crosshairs" css="position:absolute;left:${point.iconx}%;top:${point.icony}%;color:${color};margin-left:-6px;margin-top:-7px" contextmenu.delegate="removePoint($event)"></i>
+    <i repeat.for="point of edupoints" class="fa fa-circle" css="position:absolute;left:${point.iconx}%;top:${point.icony}%;color:${point.color};margin-left:-6px;margin-top:-7px;opacity:0.7;pointer-events:none"></i>
+    </div>
+  </nav>
+</template>
