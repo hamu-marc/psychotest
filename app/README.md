@@ -33,3 +33,20 @@ You need the app running for integration test.
 First, run `au run` and keep it running.
 
 Then run `au protractor`.
+
+# Development
+
+`src/components/` components of psychotest
+
+`src/provider/` data storage provider integration
+
+`src/editor/` psychotest editor app to edit/preview
+
+`src/locales/` localization using i18n to different languages
+
+`src/viewer/` psychotest view application interprets test definition
+
+
+
+
+ 
